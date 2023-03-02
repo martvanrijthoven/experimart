@@ -1,0 +1,43 @@
+default:
+  data: /home/mart/Desktop/wsidata
+  iterator_settings:
+    user_config: 
+      wholeslidedata:
+        default:
+          yaml_source:
+            training: 
+              - wsi:
+                  path: ${data}/TCGA-21-5784-01Z-00-DX1.tif
+                wsa:
+                  path: ${data}/TCGA-21-5784-01Z-00-DX1.xml
+            validation: 
+              - wsi:
+                  path: ${data}/TCGA-21-5784-01Z-00-DX1.tif
+                wsa:
+                  path: ${data}/TCGA-21-5784-01Z-00-DX1.xml
+          labels: 
+            lymphocytes: 1
+          batch_shape: 
+            batch_size: 1
+            spacing: 0.5
+            shape: [256, 256, 3]
+    cpus: 1
+    number_of_batches: None
+    index: 0
+    update_samplers: False
+    return_info: True
+    search_paths: []
+    presets: []
+    cpus: 1
+    context: "fork"
+    determinstic: True
+    buffer_dtype: ${$numpy.uint16}
+    iterator_class: ${$wholeslidedata.iterators.batchiterator.BatchIterator}
+  training_iterator:
+    "*object": wholeslidedata.iterators.create_batch_iterator
+    mode: training
+    "**kwargs": ${iterator_settings}
+  validation_iterator:  
+    "*object": wholeslidedata.iterators.create_batch_iterator
+    mode: validation
+    "**kwargs": ${iterator_settings}

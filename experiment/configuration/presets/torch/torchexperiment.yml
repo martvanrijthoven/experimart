@@ -1,0 +1,25 @@
+default:
+  model:
+    "*object": torchvision.models.segmentation.deeplabv3_mobilenet_v3_large
+  model_parameters: 
+    "*object": experiment.interoperability.torch.get_model_parameters
+    model: ${model}
+  criterion:
+    "*object": torch.nn.CrossEntropyLoss
+    ignore_index: 0
+  optimizer:
+    '*object': torch.optim.Adam
+    params: ${model_parameters}
+    lr: ${learning_rate}
+  scheduler:
+    '*object': torch.optim.lr_scheduler.ExponentialLR
+    optimizer: ${optimizer}
+    gamma: 0.9
+  training_step_iterator:
+    "*object": experiment.interoperability.torch.TorchTrainingStepIterator
+    optimizer: ${optimizer}
+    criterion: ${criterion}
+    scheduler: ${scheduler}
+  validation_step_iterator:
+    "*object": experiment.interoperability.torch.TorchValidationStepIterator
+    criterion: ${criterion}
