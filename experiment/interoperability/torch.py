@@ -1,12 +1,16 @@
 from experiment.step import StepIterator
-import torch 
+import torch
+
 
 def get_model_parameters(model):
     return model.parameters()
 
 
-class TorchTrainingStepIterator(StepIterator):
+def save_model(model, output_folder, suffix):
+    torch.save(model.state_dict(), output_folder / f"{suffix}.pth")
 
+
+class TorchTrainingStepIterator(StepIterator):
     def __init__(
         self, model, data_iterator, num_steps, optimizer, criterion, scheduler
     ):
@@ -20,8 +24,7 @@ class TorchTrainingStepIterator(StepIterator):
         for _ in range(len(self)):
             data, label, info = next(self._data_iterator)
             self._optimizer.zero_grad()
-            output = self._model(data)
-            output = output["out"]
+            output = self._model(data)["out"]
             loss = self._criterion(output, label)
             loss.backward()
             self._optimizer.step()
@@ -30,13 +33,9 @@ class TorchTrainingStepIterator(StepIterator):
 
 
 class TorchValidationStepIterator(StepIterator):
-    def __init__(
-        self, model, data_iterator, num_steps, criterion
-    ):
+    def __init__(self, model, data_iterator, num_steps, criterion):
         super().__init__(model, data_iterator, num_steps)
         self._criterion = criterion
-
-
 
     def steps(self, data, label):
         self._model.eval()
@@ -47,4 +46,3 @@ class TorchValidationStepIterator(StepIterator):
                 output = output["out"]
                 loss = self._criterion(output, label)
                 yield loss.item()
-        torch.save(self._model.state_dict(), self._tracker.log_path / "last_model.pth")

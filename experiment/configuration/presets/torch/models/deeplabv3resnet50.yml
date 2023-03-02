@@ -1,0 +1,4 @@
+default:
+  model:
+    "*object": torchvision.models.segmentation.deeplabv3_resnet50
+    num_classes: ${num_classes}

@@ -1,6 +1,9 @@
 default:
+  tracker:
+    save_model: ${$experiment.interoperability.torch.save_model}
   model:
     "*object": torchvision.models.segmentation.deeplabv3_mobilenet_v3_large
+    num_classes: ${num_classes}
   model_parameters: 
     "*object": experiment.interoperability.torch.get_model_parameters
     model: ${model}

@@ -1,7 +1,10 @@
 from collections.abc import Iterator
-from dataclasses import dataclass, asdict
 from statistics import mean
+from typing import Any
 
+from experiment.tracker import Tracker
+from experiment.step import StepIterator
+from dataclasses import dataclass, asdict
 
 @dataclass
 class EpochStats:
@@ -14,11 +17,11 @@ class EpochStats:
 class EpochIterator(Iterator):
     def __init__(
         self,
-        num_steps,
-        tracker,
-        model,
-        training_step_iterator,
-        validation_step_iterator,
+        num_steps: int,
+        tracker: Tracker,
+        model: Any,
+        training_step_iterator: StepIterator,
+        validation_step_iterator: StepIterator,
     ):
 
         self._num_steps = num_steps
@@ -38,4 +41,5 @@ class EpochIterator(Iterator):
         for epoch in range(self._num_steps):
             train_loss = mean([loss for loss in self._training_step_iterator])
             validation_loss = mean([loss for loss in self._validation_step_iterator])
+            self._tracker.save_model(self._model, self._tracker.log_path, 'last_model')
             yield EpochStats(epoch, train_loss, validation_loss)
