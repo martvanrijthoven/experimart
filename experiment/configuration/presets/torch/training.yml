@@ -1,0 +1,38 @@
+default:
+  model:
+    "*object": experiment.models.torch.unet.UNET
+    in_channels: 3
+    out_channels: ${num_classes}
+  model_parameters: 
+    "*object": experiment.interoperability.torch.utils.get_model_parameters
+    model: ${model}
+  criterion:
+    "*object": torch.nn.CrossEntropyLoss
+    ignore_index: 0
+  optimizer:
+    '*object': torch.optim.Adam
+    params: ${model_parameters}
+    lr: ${learning_rate}
+  scheduler:
+    '*object': torch.optim.lr_scheduler.ExponentialLR
+    optimizer: ${optimizer}
+    gamma: 0.9
+  step_components:
+    "*object": experiment.interoperability.torch.step.TorchStepComponents
+    optimizer: ${optimizer}
+    criterion: ${criterion}
+    scheduler: ${scheduler}
+  training_step_iterator:
+    "*object": experiment.interoperability.torch.step.TorchTrainingStepIterator
+    model: ${model}
+    data_iterator: ${training_data_iterator}
+    num_steps: ${num_training_steps}
+    components: ${step_components}
+    metrics: None
+  validation_step_iterator:
+    "*object": experiment.interoperability.torch.step.TorchValidationStepIterator
+    model: ${model}
+    data_iterator: ${validation_data_iterator}
+    num_steps: ${num_validation_steps}
+    components: ${step_components}
+    metrics: None

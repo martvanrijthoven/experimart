@@ -1,0 +1,5 @@
+default:
+  model:
+    "*object": experiment.models.unet.UNET
+    in_channels: 3
+    out_channels: ${num_classes}

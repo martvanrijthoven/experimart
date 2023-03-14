@@ -1,0 +1,6 @@
+default:
+  tracker:
+    "*object": experiment.interoperability.wandb.WandbTracker
+    save_model: None
+    project: ${project}
+    log_path: ${log_path}

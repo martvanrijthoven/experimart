@@ -1,20 +1,20 @@
 default:
-  data: /home/mart/Desktop/wsidata
-  iterator_settings:
+  data_folder: /home/mart/Desktop/wsidata
+  data_settings:
     user_config: 
       wholeslidedata:
         default:
           yaml_source:
             training: 
               - wsi:
-                  path: ${data}/TCGA-21-5784-01Z-00-DX1.tif
+                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.tif
                 wsa:
-                  path: ${data}/TCGA-21-5784-01Z-00-DX1.xml
+                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.xml
             validation: 
               - wsi:
-                  path: ${data}/TCGA-21-5784-01Z-00-DX1.tif
+                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.tif
                 wsa:
-                  path: ${data}/TCGA-21-5784-01Z-00-DX1.xml
+                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.xml
           labels: 
             lymphocytes: 1
           batch_shape: 
@@ -33,11 +33,11 @@ default:
     determinstic: True
     buffer_dtype: ${$numpy.uint16}
     iterator_class: ${$wholeslidedata.iterators.batchiterator.BatchIterator}
-  training_iterator:
+  training_data_iterator:
     "*object": wholeslidedata.iterators.create_batch_iterator
     mode: training
-    "**kwargs": ${iterator_settings}
-  validation_iterator:  
+    "**kwargs": ${data_settings}
+  validation_data_iterator:  
     "*object": wholeslidedata.iterators.create_batch_iterator
     mode: validation
-    "**kwargs": ${iterator_settings}
+    "**kwargs": ${data_settings}
