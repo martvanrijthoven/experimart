@@ -1,6 +1,6 @@
 from typing import Iterable
-from training.step import StepIterator
-
+from experimart.training.step import StepIterator
+from abc import ABC
 
 class TensorLearningRateScheduler:
     def __init__(
@@ -32,7 +32,7 @@ class TensorFlowStepComponents:
         return self._lr_scheduler
 
 
-class TensorflowStepIterator(StepIterator):
+class TensorflowStepIterator(ABC, StepIterator):
     def __init__(
         self,
         model,

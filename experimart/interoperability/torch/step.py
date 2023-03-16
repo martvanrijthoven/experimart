@@ -1,8 +1,8 @@
 from typing import Callable, Iterable, List, Tuple
 
 import torch
-
-from experiment.training.step import StepIterator
+from abc import ABC
+from experimart.training.step import StepIterator
 
 
 class TorchStepComponents:
@@ -24,7 +24,7 @@ class TorchStepComponents:
         return self._scheduler
 
 
-class TorchStepIterator(StepIterator):
+class TorchStepIterator(ABC, StepIterator):
     def __init__(
         self,
         model: torch.nn.Module,

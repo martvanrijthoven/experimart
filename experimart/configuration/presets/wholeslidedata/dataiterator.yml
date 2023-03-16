@@ -1,10 +1,11 @@
 default:
-  data_folder: /home/mart/Desktop/wsidata
+  
   data_settings:
     user_config: 
-      wholeslidedata:
+      wholeslidedata@ignore: ### ????
         default:
           yaml_source:
+            data_folder: /home/mart/Desktop/wsidata
             training: 
               - wsi:
                   path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.tif

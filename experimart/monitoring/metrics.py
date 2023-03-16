@@ -1,6 +1,15 @@
-from experiment.monitoring.tracking import Tracker
+from experimart.monitoring.tracking import Tracker
 
 class MetricSummary:
+    """
+        epoch callback
+        dict: list -> dict: value
+        e.g.,
+            dict: list[floats] -> dict: value (e.g, mean(loss))
+            dict: list[object] -> dict: value (e.g., confusion matrix)
+
+    """
+
     def __init__(
         self, train_callables: dict, validation_callables: dict, tracker: Tracker = None,
     ):

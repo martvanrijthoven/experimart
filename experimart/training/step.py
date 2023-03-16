@@ -1,4 +1,5 @@
 from collections.abc import Iterator
+from typing import Any, Dict
 
 
 class StepIterator(Iterator):
@@ -20,6 +21,6 @@ class StepIterator(Iterator):
             return {}
         return {name: metric(y_true, y_pred) for name, metric in self._metrics.items()}
 
-    def steps(self):
+    def steps(self) -> Dict[str, Any]:
         for _ in range(len(self)):
             yield {'loss': 0.5}

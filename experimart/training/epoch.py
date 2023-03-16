@@ -3,7 +3,7 @@ from typing import Callable, Protocol
 
 from pandas import DataFrame
 
-from experiment.training.step import StepIterator
+from experimart.training.step import StepIterator
 
 
 class EpochCallback(Protocol):
