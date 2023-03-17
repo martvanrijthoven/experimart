@@ -21,7 +21,7 @@ def run(config=None, presets=()):
 
     reader = ConfigReader(name=NAME, main_config_path=MAIN_CONFIG_PATH)
     config = reader.read(config, presets=presets)["default"]
-    training = build_config(config, log_folder=Path(config["log_path"]))
+    training = build_config(config)
     epoch_iterator = training["epoch_iterator"]
     for _ in range(len(epoch_iterator)):
         next(epoch_iterator)

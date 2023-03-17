@@ -23,6 +23,6 @@ class MetricSummary:
             for key, callable in callables.items():
                 metrics[f"{name}_{key}"] = callable(outputs[name][key])
         
-        print (metrics)
+        print(metrics)
         if self._tracker is not None:
             self._tracker.update(metrics)

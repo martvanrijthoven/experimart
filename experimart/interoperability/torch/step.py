@@ -33,6 +33,7 @@ class TorchStepIterator(ABC, StepIterator):
         components: TorchStepComponents,
         metrics: List[Callable] = None,
     ):
+        
         super().__init__(model, data_iterator, num_steps, metrics)
         self._components = components
 

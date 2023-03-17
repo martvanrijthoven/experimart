@@ -4,6 +4,8 @@ from typing import Union
 
 import torch
 
+def to_cuda(model):
+    return model.cuda()
 
 def get_model_parameters(model):
     return model.parameters()
