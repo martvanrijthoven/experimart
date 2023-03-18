@@ -1,29 +1,7 @@
 default:
   data_folder: /tmp/
   data_settings:
-    user_config: 
-      wholeslidedata:
-        default:
-          seed: 123
-          yaml_source:
-            training: 
-              - wsi:
-                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.tif
-                wsa:
-                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.xml
-            validation: 
-              - wsi:
-                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.tif
-                wsa:
-                  path: ${data_folder}/TCGA-21-5784-01Z-00-DX1.xml
-          labels: 
-            lymphocytes: 1
-            tumor: 2
-            stroma: 3
-          batch_shape: 
-            batch_size: 32
-            spacing: 0.5
-            shape: [32, 32, 3]
+    user_config: None
     cpus: 1
     number_of_batches: None
     index: 0
@@ -35,7 +13,6 @@ default:
     context: "fork"
     determinstic: True
     buffer_dtype: ${$numpy.uint16}
-    iterator_class: ${$wholeslidedata.interoperability.pytorch.iterator.TorchBatchIterator}
   training_data_iterator:
     "*object": wholeslidedata.iterators.create_batch_iterator
     mode: training

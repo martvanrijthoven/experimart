@@ -21,7 +21,7 @@ class TorchModelIO:
         if not os.access(output_folder, os.W_OK):
             raise ValueError(f"Output folder '{output_folder}' is not writable.")
 
-    def save(self):
+    def __call__(self, epoch: int, train_output, validation_output):
         torch.save(self._model.state_dict(), self._output_path)
 
     @classmethod

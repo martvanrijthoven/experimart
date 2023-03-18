@@ -4,7 +4,7 @@ default:
     in_channels: 3
     out_channels: ${num_classes}
   model_parameters: 
-    "*object": experimart.interoperability.torch.utils.get_model_parameters
+    "*object": experimart.interoperability.torch.io.get_model_parameters
     model: ${model}
   criterion:
     "*object": torch.nn.CrossEntropyLoss
@@ -36,3 +36,8 @@ default:
     num_steps: ${num_validation_steps}
     components: ${step_components}
     metrics: None
+  epoch_callbacks:
+    - "*object": experimart.interoperability.torch.io.TorchModelIO
+      model: ${model}
+      output_folder: ${log_path}
+      suffix: ${model_name}
