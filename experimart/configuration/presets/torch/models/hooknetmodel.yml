@@ -1,0 +1,10 @@
+default:
+  model@replace(true):
+    "*object": experimart.interoperability.torch.utils.to_cuda
+    model:
+        "*object": hooknet.model_torch.HookNet
+        n_classes: 4
+        depth: 4
+        n_convs: 2
+        n_filters: 8
+        batch_norm: True

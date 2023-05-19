@@ -7,38 +7,39 @@ default:
 
   # Model
   model: None
+  model_name: model_name
   learning_rate: 0.05
-  num_classes: 1000
+  num_classes: 4
   
   # Data
   training_data_iterator: None
   validation_data_iterator: None
 
   # Steps
-  num_training_steps: 2
-  num_validation_steps: 2
+  num_training_steps: 50
+  num_validation_steps: 50
   training_step_iterator:
-    "*object": experiment.training.step.StepIterator
+    "*object": experimart.training.step.StepIterator
     model: ${model}
     data_iterator: ${training_data_iterator}
     num_steps: ${num_training_steps}
   validation_step_iterator:
-    "*object": experiment.training.step.StepIterator
+    "*object": experimart.training.step.StepIterator
     model: ${model}
     data_iterator: ${validation_data_iterator}
     num_steps: ${num_validation_steps}
 
   # Epochs
   num_epochs: 10
-  epoch_callbacks: 
-    - "*object": experiment.monitoring.metrics.MetricSummary
+  epoch_callbacks@replace(false): 
+    - "*object": experimart.monitoring.metrics.MetricSummary
       train_callables: 
         'loss': ${$statistics.mean}
       validation_callables: 
         'loss': ${$statistics.mean}
       tracker: ${tracker}
   epoch_iterator:
-    "*object": experiment.training.epoch.EpochIterator
+    "*object": experimart.training.epoch.EpochIterator
     num_epochs: ${num_epochs}
     training_step_iterator: ${training_step_iterator}
     validation_step_iterator: ${validation_step_iterator}

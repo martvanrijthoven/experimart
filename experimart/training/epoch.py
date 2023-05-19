@@ -32,9 +32,10 @@ class EpochIterator(Iterator):
         if self._epoch == len(self):
             raise StopIteration()
         
+        print(self._epoch)
         train_output = DataFrame([out for out in next(self._training_step_iterator)])
         validation_output = DataFrame([out for out in next(self._validation_step_iterator)])
-
+        
         for epoch_callback in self._epoch_callbacks:
             epoch_callback(self._epoch, train_output, validation_output)
         
