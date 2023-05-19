@@ -1,5 +1,5 @@
 import wandb
-from experiment.monitoring.tracking import Tracker
+from experimart.monitoring.tracking import Tracker
 
 
 class WandbTracker(Tracker):
