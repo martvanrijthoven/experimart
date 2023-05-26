@@ -6,11 +6,11 @@ default:
   tracker: None
 
   # Model
-  model: None
   model_name: model_name
   learning_rate: 0.05
   num_classes: 4
-  
+  model: None
+
   # Data
   training_data_iterator: None
   validation_data_iterator: None
