@@ -15,8 +15,8 @@ class Tracker:
     def log_path(self):
         return self._log_path
 
-    def update(self, epoch_stats: dict):
-        self._logger.info(str(epoch_stats))
+    def update(self, statistics: dict):
+        self._logger.info(str(statistics))
 
     def save_parameters(self, parameters: dict):
         with open(self._log_path / "parameters.yml", "w") as outfile:

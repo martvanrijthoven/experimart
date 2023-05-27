@@ -22,10 +22,10 @@ class MetricSummary:
         self._metrics = metrics
 
     def __call__(self, epoch: int, outputs: dict):
-        metrics = {"epoch": epoch}
+        statistics = {"epoch": epoch}
         for mode, metrics in self._metrics.items():
             for metric_key, metric in metrics.items():
-                metrics[f"{mode}_{metric_key}"] = metric(outputs[mode][metric_key])
+                statistics[f"{mode}_{metric_key}"] = metric(outputs[mode][metric_key])
 
         if self._tracker is not None:
-            self._tracker.update(metrics)
+            self._tracker.update(statistics)

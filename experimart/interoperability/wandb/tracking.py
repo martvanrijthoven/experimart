@@ -8,9 +8,9 @@ class WandbTracker(Tracker):
         super().__init__(log_path=log_path)
         wandb.init(project=project, dir=log_path)
 
-    def update(self, epoch_stats: dict):
-        super().update(epoch_stats)
-        wandb.log(epoch_stats)
+    def update(self, statistics: dict):
+        super().update(statistics)
+        wandb.log(statistics)
 
     def save_parameters(self, parameters: dict):
         super().save_parameters(parameters)
