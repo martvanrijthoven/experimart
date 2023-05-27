@@ -7,7 +7,7 @@ from experimart.training.step import StepIterator
 
 
 class EpochCallback(Protocol):
-    def __call__(epoch: int, outputs: dict[str, DataFrame]):
+    def __call__(epoch: int, outputs: dict):
         raise NotImplementedError()
 
 
