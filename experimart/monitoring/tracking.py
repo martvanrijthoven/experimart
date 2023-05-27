@@ -15,7 +15,7 @@ stream_handler.setFormatter(formatter)
 logger.addHandler(stream_handler)
 
 
-class Tracker:
+class LocalTracker:
     def __init__(self, log_path):
         self._log_path = Path(log_path)
         self._log_path.mkdir(parents=True, exist_ok=True)

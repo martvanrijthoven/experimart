@@ -1,5 +1,6 @@
 default:
-  tracker:
-    "*object": experimart.interoperability.wandb.tracking.WandbTracker
-    project: ${project}
-    log_path: ${log_path}
+  trackers:
+    wandb_tracker:
+      "*object": experimart.interoperability.wandb.tracking.WandbTracker
+      project: ${project}
+      log_path: ${log_path}

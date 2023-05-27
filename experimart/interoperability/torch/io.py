@@ -11,7 +11,7 @@ def get_model_parameters(model):
     return model.parameters()
 
 
-class TorchModelIO:
+class TorchModelTracker:
     def __init__(self, model, output_folder: Union[str, Path], suffix: str):
         self._model = model
         self._output_path = Path(output_folder) / f"{suffix}.pth"
@@ -21,7 +21,7 @@ class TorchModelIO:
         if not os.access(output_folder, os.W_OK):
             raise ValueError(f"Output folder '{output_folder}' is not writable.")
 
-    def __call__(self, epoch: int, outputs: dict):
+    def update(self, statistics: dict):
         torch.save(self._model.state_dict(), self._output_path)
 
     @classmethod
