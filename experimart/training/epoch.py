@@ -1,5 +1,5 @@
 from collections.abc import Iterator
-from typing import Callable, Protocol, Tuple
+from typing import Callable, Protocol
 
 from pandas import DataFrame
 
@@ -7,7 +7,7 @@ from experimart.training.step import StepIterator
 
 
 class EpochCallback(Protocol):
-    def __call__(epoch: int, train_output: DataFrame, validation_output: DataFrame):
+    def __call__(epoch: int, outputs: dict[str, DataFrame]):
         raise NotImplementedError()
 
 
