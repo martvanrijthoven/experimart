@@ -1,5 +1,4 @@
 default:
-
   # Project
   project: experimart
   log_path: ./

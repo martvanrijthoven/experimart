@@ -16,12 +16,12 @@ class MetricSummary:
     def __init__(
         self,
         tracker: Tracker = None,
-        metrics: dict[str, dict] = None,
+        metrics: dict = None,
     ):
         self._tracker = tracker
         self._metrics = metrics
 
-    def __call__(self, epoch: int, outputs: dict[str, DataFrame]):
+    def __call__(self, epoch: int, outputs: dict):
         metrics = {"epoch": epoch}
         for mode, metrics in self._metrics.items():
             for metric_key, metric in metrics.items():
