@@ -24,6 +24,9 @@ class TorchModelTracker:
     def update(self, statistics: dict):
         torch.save(self._model.state_dict(), self._output_path)
 
+    def save_parameters(self, parameters):
+        pass
+
     @classmethod
     def load(cls, model, saved_model_path: Union[str, Path]):
         state_dict = torch.load(saved_model_path)

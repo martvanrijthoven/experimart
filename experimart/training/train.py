@@ -4,7 +4,6 @@ import click
 from dicfg import build_config
 
 from experimart.configuration.loading import load_config
-from experimart.monitoring.tracking import Tracker
 from experimart.training.epoch import EpochIterator
 
 
@@ -22,8 +21,8 @@ def run(config=None, search_paths=(), presets=()):
     configurations: dict = load_config(config, search_paths, presets)
     objects: dict = build_config(configurations)
 
-    tracker: Tracker = objects["tracker"]
-    tracker.save_parameters(configurations)
+    for tracker in objects["trackers"]:
+        tracker.save_parameters(configurations)
 
     epoch_iterator: EpochIterator = objects["epoch_iterator"]
     for epoch in epoch_iterator:
