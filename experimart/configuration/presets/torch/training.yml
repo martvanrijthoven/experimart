@@ -38,7 +38,7 @@ default:
     metrics: None
   trackers:
     torch_model_tracker: 
-    - "*object": experimart.interoperability.torch.io.TorchModelTracker
+      "*object": experimart.interoperability.torch.io.TorchModelTracker
       model: ${model}
       output_folder: ${log_path}
       suffix: ${model_name}
