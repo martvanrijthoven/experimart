@@ -1,4 +1,5 @@
 import wandb
+
 from experimart.monitoring.tracking import Tracker
 
 
@@ -11,10 +12,6 @@ class WandbTracker(Tracker):
         super().update(epoch_stats)
         wandb.log(epoch_stats)
 
-    def save(self, name: str, data: dict):  
-        output_path = self._log_path / (name + '.yml')
-        super().save(output_path=output_path, data=data)
-        wandb.save(str(output_path))
-
-    def update_config(self, config):
-        wandb.config.update(config)
+    def save_parameters(self, parameters: dict):
+        super().save_parameters(parameters)
+        wandb.config.update(parameters)

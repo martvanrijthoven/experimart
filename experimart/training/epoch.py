@@ -1,5 +1,5 @@
 from collections.abc import Iterator
-from typing import Callable, Protocol
+from typing import Callable, Protocol, Tuple
 
 from pandas import DataFrame
 
@@ -25,23 +25,20 @@ class EpochIterator(Iterator):
         self._epoch_callbacks = epoch_callbacks
         self._epoch = 0
 
-    def __len__(self):
+    def __len__(self) -> int:
         return self._num_epochs
 
-    def __next__(self):
-        if self._epoch == len(self):
-            raise StopIteration()
-        
-        print(self._epoch)
-        train_output = DataFrame([out for out in next(self._training_step_iterator)])
-        validation_output = DataFrame([out for out in next(self._validation_step_iterator)])
-        
-        for epoch_callback in self._epoch_callbacks:
-            epoch_callback(self._epoch, train_output, validation_output)
-        
+    def __call__(self):
         self._epoch += 1
+        
+        training = DataFrame([out for out in next(self._training_step_iterator)])
+        validation = DataFrame([out for out in next(self._validation_step_iterator)])
+        outputs={'training': training, 'validation': validation}
 
-    
-
-
-
+        for epoch_callback in self._epoch_callbacks:
+            epoch_callback(self._epoch, outputs=outputs)
+        
+    def __next__(self) -> Callable:
+        if self._epoch >= len(self):
+            raise StopIteration()
+        return self

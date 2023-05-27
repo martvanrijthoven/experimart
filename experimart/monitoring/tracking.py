@@ -1,6 +1,6 @@
 import logging
 from pathlib import Path
-from typing import Union
+from pprint import pprint
 
 import yaml
 
@@ -18,6 +18,6 @@ class Tracker:
     def update(self, epoch_stats: dict):
         self._logger.info(str(epoch_stats))
 
-    def save(self, output_path: Union[str, Path], data: dict):
-        with open(output_path, "w") as outfile:
-            yaml.dump(data, outfile, default_flow_style=False, sort_keys=False)
+    def save_parameters(self, parameters: dict):
+        with open(self._log_path / "parameters.yml", "w") as outfile:
+            yaml.dump(parameters, outfile, default_flow_style=False, sort_keys=False)

@@ -1,28 +1,31 @@
+from pandas import DataFrame
+
 from experimart.monitoring.tracking import Tracker
+
 
 class MetricSummary:
     """
-        epoch callback
-        dict: list -> dict: value
-        e.g.,
-            dict: list[floats] -> dict: value (e.g, mean(loss))
-            dict: list[object] -> dict: value (e.g., confusion matrix)
+    epoch callback
+    dict: list -> dict: value
+    e.g.,
+        dict: list[floats] -> dict: value (e.g, mean(loss))
+        dict: list[object] -> dict: value (e.g., confusion matrix)
 
     """
 
     def __init__(
-        self, train_callables: dict, validation_callables: dict, tracker: Tracker = None,
+        self,
+        tracker: Tracker = None,
+        metrics: dict[str, dict] = None,
     ):
         self._tracker = tracker
-        self._callables = {"train": train_callables, "validation": validation_callables}
+        self._metrics = metrics
 
-    def __call__(self, epoch, train_output, validation_output):
-        outputs = {"train": train_output, "validation": validation_output}
+    def __call__(self, epoch: int, outputs: dict[str, DataFrame]):
         metrics = {"epoch": epoch}
-        for name, callables in self._callables.items():
-            for key, callable in callables.items():
-                metrics[f"{name}_{key}"] = callable(outputs[name][key])
-        
-        print(metrics)
+        for mode, metrics in self._metrics.items():
+            for metric_key, metric in metrics.items():
+                metrics[f"{mode}_{metric_key}"] = metric(outputs[mode][metric_key])
+
         if self._tracker is not None:
             self._tracker.update(metrics)
