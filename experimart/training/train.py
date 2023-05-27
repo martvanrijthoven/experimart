@@ -21,7 +21,7 @@ def run(config=None, search_paths=(), presets=()):
     configurations: dict = load_config(config, search_paths, presets)
     objects: dict = build_config(configurations)
 
-    for tracker in objects["trackers"]:
+    for tracker in objects["trackers"].values():
         tracker.save_parameters(configurations)
 
     epoch_iterator: EpochIterator = objects["epoch_iterator"]
