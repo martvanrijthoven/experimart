@@ -26,4 +26,4 @@ In essence, Experimart allows users to leverage pre-configured settings for a br
 
 Whether you're dipping your toes into deep learning or a seasoned researcher looking to streamline your workflow, ExperiMart is here to make your experiments efficient, manageable, and more enjoyable.
 
-Stay tuned for more updates and feel free to star this repository to follow along with the development progress! 
+Stay tuned for more updates! 
