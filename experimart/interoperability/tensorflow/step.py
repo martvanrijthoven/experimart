@@ -1,26 +1,10 @@
-from typing import Iterable
-from experimart.training.step import StepIterator
 from abc import ABC
+from typing import Iterable
 
-class TensorLearningRateScheduler:
-    def __init__(
-        self,
-        model,
-        decay_rate=0.5,
-        decay_steps=[2, 4, 1000, 5000, 10_000, 50_000, 100_000],
-    ):
-        self._model = model
-        self._lr = self._model.optimizer.lr.numpy()
-        self._decay_rate = decay_rate
-        self._decay_steps = decay_steps
-        self._index = 0
-
-    def __call__(self):
-        if self._index in self._decay_steps:
-            self._lr *= self._decay_rate
-            self._model.optimizer.lr.assign(self._lr)
-        self._index += 1
-        return self._lr
+from experimart.interoperability.tensorflow.components import (
+    TensorLearningRateScheduler,
+)
+from experimart.training.step import StepIterator
 
 
 class TensorFlowStepComponents:
@@ -47,7 +31,7 @@ class TensorflowStepIterator(ABC, StepIterator):
     def _update_learning_rate(self):
         if self._components is not None and self._components.lr_scheduler is not None:
             return self._components.lr_scheduler()
-
+        return None
 
 class TensorflowTrainingStepIterator(TensorflowStepIterator):
     def steps(self):
@@ -62,7 +46,7 @@ class TensorflowValidationStepIterator(TensorflowStepIterator):
     def steps(self):
         lr = self._update_learning_rate()
         for _ in range(len(self)):
-            metrics = {} if lr is None else {'learning_rate': lr}    
+            metrics = {} if lr is None else {"learning_rate": lr}
             x_batch, y_batch, _ = next(self._data_iterator)
             predictions = self._model.predict_on_batch(x=x_batch, argmax=False)
             metrics.update(self.get_metrics(y_batch, predictions))
