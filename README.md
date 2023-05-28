@@ -12,7 +12,7 @@
 
 
 
-## Experimart :shopping_cart:
+## ExperiMart :shopping_cart:
 
 Welcome to **ExperiMart**! A flexible and user-friendly package designed to accelerate your journey into the world of deep learning.
 
