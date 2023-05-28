@@ -22,7 +22,7 @@ At its core, Experimart is a configuration-based deep learning experiment runner
 
 One of the key features of Experimart is its flexibility. We recognize that deep learning tasks are varied and complex, and there are times when you need to add custom functionality. With Experimart, you have the freedom to create new code for your specific requirements and effortlessly integrate it with your experiment via the configuration file.
 
-In essence, Experimart allows users to leverage pre-configured settings for a broad range of experiments and, when needed, tailor their experiment by adding custom code. This approach provides a balance between ease of use for beginners and versatility for advanced users.
+In essence, ExperiMart allows users to leverage pre-configured settings for a broad range of experiments and, when needed, tailor their experiment by adding custom code. This approach provides a balance between ease of use for beginners and versatility for advanced users.
 
 Whether you're dipping your toes into deep learning or a seasoned researcher looking to streamline your workflow, ExperiMart is here to make your experiments efficient, manageable, and more enjoyable.
 
