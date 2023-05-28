@@ -1,9 +1,15 @@
+<table align="center">
+  <tr>
+    <td>
+      :construction: :construction: :construction: :construction: :construction: :construction: :construction: 
+      <br><br>
+      <img src="https://img.shields.io/badge/status-under%20development-green" alt="status"/>
+      <br><br>
+      :construction: :construction: :construction: :construction: :construction: :construction: :construction: 
+    </td>
+  </tr>
+</table>
 
-:construction:  :construction:  :construction:  :construction:  :construction:  :construction:  :construction:
-
-![status](https://img.shields.io/badge/status-under%20development-green)
-
-:construction:  :construction:  :construction:  :construction:  :construction:  :construction:  :construction:
 
 
 ## Experimart :shopping_cart:
