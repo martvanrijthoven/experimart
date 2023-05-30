@@ -62,7 +62,6 @@ class TorchTrainingStepIterator(TorchStepIterator):
         self._model.train()
         for _ in range(len(self)):
             data, label = self._get_data()
-            data, label = convert_data_to_device(data, label)
             self._components.optimizer.zero_grad()
             output = self._get_output(data)
             loss = self._get_loss(output, label)
@@ -83,7 +82,6 @@ class TorchValidationStepIterator(TorchStepIterator):
         with torch.no_grad():
             for _ in range(len(self)):
                 data, label = self._get_data()
-                data, label = convert_data_to_device(data, label)
                 output = self._get_output(data)
                 loss = self._get_loss(output, label)
                 metrics = self._get_metrics(label, output)
