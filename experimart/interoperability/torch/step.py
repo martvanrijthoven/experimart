@@ -1,4 +1,5 @@
 from typing import Callable, Iterable, List, Tuple
+from experimart.interoperability.torch.io import convert_data_to_device
 
 import torch
 from abc import ABC
@@ -38,9 +39,7 @@ class TorchStepIterator(ABC, StepIterator):
 
     def _get_data(self):
         data, label = next(self._data_iterator)
-        data = torch.tensor(data, device="cuda").float() // 225.0
-        label = torch.tensor(label, device="cuda").long()
-        return data, label
+        return convert_data_to_device(data, label, device='cuda')
 
     def _get_output(self, data):
         return self._model(data)["out"]
@@ -48,6 +47,10 @@ class TorchStepIterator(ABC, StepIterator):
     def _get_loss(self, output, label):
         return self._components.criterion(output, label)
 
+
+class TorchMultiInputStepIterator(StepIterator):
+    def _get_output(self, data):
+        return self._model(*data)["out"]
 
 class TorchTrainingStepIterator(TorchStepIterator):
     def _update_training_metrics(self):

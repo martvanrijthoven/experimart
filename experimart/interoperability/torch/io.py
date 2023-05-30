@@ -10,6 +10,9 @@ def to_cuda(model):
 def get_model_parameters(model):
     return model.parameters()
 
+def convert_data_to_device(data, label, device):
+    data = torch.tensor(data, device=device).float() // 225.0
+    label = torch.tensor(label, device=device).long()
 
 class TorchModelTracker:
     def __init__(self, model, output_folder: Union[str, Path], suffix: str):
