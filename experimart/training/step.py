@@ -16,7 +16,7 @@ class StepIterator(Iterator):
     def __next__(self):
         return self.steps()
 
-    def get_metrics(self, y_true, y_pred):
+    def _get_metrics(self, y_true, y_pred):
         if self._metrics is None:
             return {}
         return {name: metric(y_true, y_pred) for name, metric in self._metrics.items()}
