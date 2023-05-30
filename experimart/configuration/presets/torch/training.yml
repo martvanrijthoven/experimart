@@ -30,7 +30,7 @@ default:
     num_steps: ${num_training_steps}
     components: ${step_components}
     metrics: ${metrics}
-    multi_inputs: ${multi_loss}
+    multi_inputs: ${multi_inputs}
   validation_step_iterator:
     "*object": experimart.interoperability.torch.step.TorchValidationStepIterator
     model: ${model}
@@ -38,7 +38,7 @@ default:
     num_steps: ${num_validation_steps}
     components: ${step_components}
     metrics: ${metrics}
-    multi_inputs: ${multi_loss}
+    multi_inputs: ${multi_inputs}
   trackers:
     torch_model_tracker: 
       "*object": experimart.interoperability.torch.io.TorchModelTracker
