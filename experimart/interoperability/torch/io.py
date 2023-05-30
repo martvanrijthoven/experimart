@@ -11,7 +11,7 @@ def get_model_parameters(model):
     return model.parameters()
 
 def convert_data_to_device(data, label, device):
-    data = torch.tensor(data, device=device).float() // 225.0
+    data = torch.tensor(data, device=device).float() / 255.0
     label = torch.tensor(label, device=device).long()
     return data, label
 
