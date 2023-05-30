@@ -22,20 +22,23 @@ default:
     optimizer: ${optimizer}
     criterion: ${criterion}
     scheduler: ${scheduler}
+  multi_inputs: False
   training_step_iterator:
     "*object": experimart.interoperability.torch.step.TorchTrainingStepIterator
     model: ${model}
     data_iterator: ${training_data_iterator}
     num_steps: ${num_training_steps}
     components: ${step_components}
-    metrics: None
+    metrics: ${metrics}
+    multi_inputs: ${multi_loss}
   validation_step_iterator:
     "*object": experimart.interoperability.torch.step.TorchValidationStepIterator
     model: ${model}
     data_iterator: ${validation_data_iterator}
     num_steps: ${num_validation_steps}
     components: ${step_components}
-    metrics: None
+    metrics: ${metrics}
+    multi_inputs: ${multi_loss}
   trackers:
     torch_model_tracker: 
       "*object": experimart.interoperability.torch.io.TorchModelTracker
