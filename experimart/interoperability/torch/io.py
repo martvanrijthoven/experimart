@@ -13,6 +13,7 @@ def get_model_parameters(model):
 def convert_data_to_device(data, label, device):
     data = torch.tensor(data, device=device).float() // 225.0
     label = torch.tensor(label, device=device).long()
+    return data, label
 
 class TorchModelTracker:
     def __init__(self, model, output_folder: Union[str, Path], suffix: str):

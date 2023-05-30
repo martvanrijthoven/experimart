@@ -33,13 +33,15 @@ class TorchStepIterator(ABC, StepIterator):
         num_steps: int,
         components: TorchStepComponents,
         metrics: List[Callable] = None,
+        device: str = 'cuda',
     ):
         super().__init__(model, data_iterator, num_steps, metrics)
         self._components = components
+        self._device = device
 
     def _get_data(self):
         data, label = next(self._data_iterator)
-        return convert_data_to_device(data, label, device='cuda')
+        return convert_data_to_device(data, label, device=self._device)
 
     def _get_output(self, data):
         return self._model(data)["out"]
