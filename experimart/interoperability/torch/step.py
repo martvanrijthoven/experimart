@@ -56,7 +56,7 @@ class TorchStepIterator(ABC, StepIterator):
 
 class TorchTrainingStepIterator(TorchStepIterator):
     def _update_training_metrics(self):
-        return {"learning_rate": self._components.scheduler.get_lr()}
+        return {"learning_rate": self._components.scheduler.get_last_lr()[0]}
 
     def steps(self):
         self._model.train()
