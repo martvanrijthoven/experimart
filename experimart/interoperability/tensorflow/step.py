@@ -33,21 +33,32 @@ class TensorflowStepIterator(ABC, StepIterator):
             return self._components.lr_scheduler()
         return None
 
+    def _get_data(self):
+        return next(self._data_iterator)
+
+
 class TensorflowTrainingStepIterator(TensorflowStepIterator):
+    def _update_training_metrics(self):
+        return {}
+
     def steps(self):
         for _ in range(len(self)):
-            x_batch, y_batch, _ = next(self._data_iterator)
-            yield self._model.train_on_batch(
-                x=x_batch, y=y_batch, return_dict=True, metrics=self._metrics
+            x, y = self._get_data()
+            metrics = self._model.train_on_batch(
+                x=x, y=y, return_dict=True, metrics=self._metrics
             )
+            metrics.update(self._update_training_metrics())
 
 
 class TensorflowValidationStepIterator(TensorflowStepIterator):
+    def _update_validation_metrics(self):
+        return {}
+
     def steps(self):
-        lr = self._update_learning_rate()
+        self._update_learning_rate()
         for _ in range(len(self)):
-            metrics = {} if lr is None else {"learning_rate": lr}
-            x_batch, y_batch, _ = next(self._data_iterator)
-            predictions = self._model.predict_on_batch(x=x_batch, argmax=False)
-            metrics.update(self.get_metrics(y_batch, predictions))
+            x, y = self._get_data()
+            predictions = self._model.predict_on_batch(x=x, argmax=False)
+            metrics = self.get_metrics(y, predictions)
+            metrics.update(self._update_validation_metrics())
             yield metrics

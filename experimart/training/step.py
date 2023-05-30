@@ -21,6 +21,9 @@ class StepIterator(Iterator):
             return {}
         return {name: metric(y_true, y_pred) for name, metric in self._metrics.items()}
 
+    def _get_data(self):
+        return next(self._data_iterator)
+
     def steps(self) -> Dict[str, Any]:
         for _ in range(len(self)):
             yield {'loss': 0.5}
