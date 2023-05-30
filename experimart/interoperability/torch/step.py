@@ -80,5 +80,5 @@ class TorchValidationStepIterator(TorchStepIterator):
                 output = self._get_output(data)
                 loss = self._get_loss(output, label)
                 metrics = self._get_metrics(label, output)
-                metrics.update(self._update_validation_metrics)
+                metrics.update(self._update_validation_metrics())
                 yield {"loss": loss.item(), **metrics}
