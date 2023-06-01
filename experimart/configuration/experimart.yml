@@ -14,8 +14,8 @@ default:
   validation_data_iterator: None
 
   # Steps
-  num_training_steps: 50
-  num_validation_steps: 50
+  num_training_steps: 5
+  num_validation_steps: 5
   training_step_iterator:
     "*object": experimart.training.step.StepIterator
     model: ${model}

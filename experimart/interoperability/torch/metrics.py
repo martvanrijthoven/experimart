@@ -18,9 +18,10 @@ class TorchConfusionMatrixMetric:
     Computes a confusion matrix for a multiclass segmentation task.
     """
 
-    def __init__(self, num_classes, device="cuda"):
+    def __init__(self, labels, device="cuda"):
         super().__init__()
-        self.num_classes = num_classes
+        self._labels = labels
+        self.num_classes = int(len(self._labels)) # needed to cast to int, not sure why?
         self._device = device
         self.reset()
 
@@ -49,6 +50,7 @@ class TorchConfusionMatrixMetric:
 
     def get_matrix(self):
         cm = ConfusionMatrix(matrix=self.values.cpu().numpy().astype(np.int64))
+        cm.relabel(mapping={value-1:key for key, value in self._labels.items()})
         self.reset()
         return cm
 
