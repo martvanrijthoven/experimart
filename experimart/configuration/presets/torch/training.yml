@@ -41,7 +41,7 @@ default:
     metrics: 
       cm:
         "*object": experimart.interoperability.torch.metrics.TorchConfusionMatrixMetric
-        num_classes: 4
+        num_classes: 3
     multi_inputs: ${multi_inputs}
   metrics:
     validation:

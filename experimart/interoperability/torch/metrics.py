@@ -32,8 +32,8 @@ class TorchConfusionMatrixMetric:
 
         mask = y_true != 0
 
-        y_true = y_true[mask]
-        y_pred = y_pred[mask]
+        y_true = y_true[mask] - 1
+        y_pred = y_pred[mask] - 1
 
         # Compute the confusion matrix for the current batch using matrix operations
         y_true_onehot = torch.nn.functional.one_hot(
