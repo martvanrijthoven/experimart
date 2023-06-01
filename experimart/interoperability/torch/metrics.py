@@ -10,7 +10,7 @@ class TorchConfusionMatrixMetricCollector:
         self._metric = metric
 
     def __call__(self, cms: List["TorchConfusionMatrixMetric"]):
-        return getattr(cms[-1].get_matrix(), self._metric)
+        return getattr(cms.iloc[-1].get_matrix(), self._metric)
 
 
 class TorchConfusionMatrixMetric:
@@ -25,6 +25,8 @@ class TorchConfusionMatrixMetric:
         self.reset()
 
     def __call__(self, y_true, y_pred):
+        y_pred = y_pred.argmax(1)
+        
         y_true = y_true.reshape(-1)
         y_pred = y_pred.reshape(-1)
 
@@ -46,7 +48,7 @@ class TorchConfusionMatrixMetric:
         return self
 
     def get_matrix(self):
-        cm = ConfusionMatrix(self.values.cpu().numpy().astype(np.int64))
+        cm = ConfusionMatrix(matrix=self.values.cpu().numpy().astype(np.int64))
         self.reset()
         return cm
 

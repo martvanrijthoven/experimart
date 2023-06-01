@@ -23,6 +23,7 @@ default:
     criterion: ${criterion}
     scheduler: ${scheduler}
   multi_inputs: False
+  
   training_step_iterator:
     "*object": experimart.interoperability.torch.step.TorchTrainingStepIterator
     model: ${model}
@@ -37,8 +38,16 @@ default:
     data_iterator: ${validation_data_iterator}
     num_steps: ${num_validation_steps}
     components: ${step_components}
-    metrics: None
+    metrics: 
+      cm:
+        "*object": experimart.interoperability.torch.metrics.TorchConfusionMatrixMetric
+        num_classes: 4
     multi_inputs: ${multi_inputs}
+  metrics:
+    validation:
+      cm: 
+        "*object": experimart.interoperability.torch.metrics.TorchConfusionMatrixMetricCollector
+        metric: "F1"
   trackers:
     torch_model_tracker: 
       "*object": experimart.interoperability.torch.io.TorchModelTracker
