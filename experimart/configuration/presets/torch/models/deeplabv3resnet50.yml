@@ -1,6 +1,6 @@
 default:
   model@replace(true):
-    "*object": experimart.interoperability.torch.utils.to_cuda
+    "*object": experimart.interoperability.torch.io.to_cuda
     model:
         "*object": torchvision.models.segmentation.deeplabv3_resnet50
         num_classes: ${num_classes}
